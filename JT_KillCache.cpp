@@ -1,7 +1,5 @@
-// JT_KillCache.C
-// Copyright (c) 2009 The Foundry Visionmongers Ltd.  All Rights Reserved.
 
-static const char* const HELP = "JT_KillCaches a constant to a set of channels";
+static const char* const HELP = "JT_KillCaches destroys the Nuke caching pipe";
 
 #include "DDImage/PixelIop.h"
 #include "DDImage/Row.h"
@@ -58,12 +56,11 @@ void JT_KillCache::pixel_engine(const Row& in, int y, int x, int r,
                        ChannelMask channels, Row& out)
 {
   foreach (z, channels) {
-    const float c = value[colourIndex(z)];
     const float* inptr = in[z] + x;
     const float* END = inptr + (r - x);
     float* outptr = out.writable(z) + x;
     while (inptr < END)
-      *outptr++ = *inptr++ + c;
+      *outptr++ = *inptr++;
   }
 }
 
